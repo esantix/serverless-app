@@ -21,21 +21,26 @@ resource "aws_s3_bucket" "simple-app-bucket" {
   {bucket_name = "esantix-app-bucket"})
 }
 
-resource "aws_s3_bucket_object" "simple-app-bucket_object" {
+resource "aws_s3_object" "simple-app-bucket_object" {
   bucket = aws_s3_bucket.simple-app-bucket.id
   key    = "index.html"
+  content_type = "text/html"
   content = templatefile("${path.module}/ui/index.html", {
     lambda_url = "${aws_lambda_function_url.backend_lambda_function_url.function_url}"
   })
 }
 
 resource "aws_s3_bucket_website_configuration" "simple-app-bucket" {
-  bucket = aws_s3_bucket.example.id
+  bucket = aws_s3_bucket.simple-app-bucket.id
 
   index_document {
     suffix = "index.html"
   }
 
+}
+
+output "website_url" {
+  value = "http://${aws_s3_bucket_website_configuration.simple-app-bucket.website_endpoint}/index.html"
 }
 ######################################################
 #       LAMBDA BACKEND
@@ -78,6 +83,3 @@ resource "aws_lambda_function_url" "backend_lambda_function_url" {
   authorization_type = "NONE"
 }
 
-output "website_url" {
-  value =aws_s3_bucket_website_configuration.simple-app-bucket.website_endpoint
-}
