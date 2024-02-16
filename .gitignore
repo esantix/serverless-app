@@ -1,2 +1,5 @@
 /.terraform
 /.terraform.lock.hcl
+
+.vscode
+tf_cloud.tf
