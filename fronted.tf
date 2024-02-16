@@ -36,6 +36,6 @@ resource "aws_s3_bucket_website_configuration" "fend-app-bucket-website-url" {
 #       OUTPUTS
 ######################################################
 
-output "website_url" {
-  value = "http://${aws_s3_bucket_website_configuration.fend-app-bucket-website-url}/index.html"
-}
+/*   output "website_url" {
+    value = "http://${aws_s3_bucket_website_configuration.fend-app-bucket-website-url.}/index.html"
+  } */
