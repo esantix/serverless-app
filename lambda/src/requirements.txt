@@ -1,0 +1,2 @@
+--extra-index https://pypi-public:gldt-zUAbH1zBBmzmVJcjzcCE@gitlab.com/api/v4/projects/esantix%2Fesantix-packages/packages/pypi/simple
+utils-esantix==0.5

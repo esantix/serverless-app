@@ -1,4 +1,5 @@
+from sutils.cprint import cprint
 
 def lambda_handler(event, context):
-    print(event)
+    cprint(event)
     return event

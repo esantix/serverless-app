@@ -8,6 +8,20 @@ data "archive_file" "python_lambda_package" {
   output_path = "lambda.zip"
 }
 
+
+
+resource "null_resource" "pip_install" {
+  triggers = {
+    shell_hash = "${sha256(file("${path.module}/lambda/src/requirements.txt"))}"
+  }
+
+  provisioner "local-exec" {
+    command = "python3 -m pip install -r ${path.module}/lambda/src/requirements.txt -t ${path.module}/layer"
+  }
+}
+
+
+
 resource "aws_lambda_function" "backend_lambda_function" {
   function_name    = "${var.app-name}-backend-lambda"
   filename         = "lambda.zip"
