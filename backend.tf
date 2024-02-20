@@ -4,11 +4,9 @@
 
 data "archive_file" "python_lambda_package" {
   type        = "zip"
-  source_file = "${path.module}/lambda/src/app.py"
+  source_file = "${path.module}/app/backend/lambda/app.py"
   output_path = "lambda.zip"
 }
-
-
 
 resource "null_resource" "pip_install" {
   triggers = {
@@ -19,8 +17,6 @@ resource "null_resource" "pip_install" {
     command = "python3 -m pip install -r ${path.module}/lambda/src/requirements.txt -t ${path.module}/layer"
   }
 }
-
-
 
 resource "aws_lambda_function" "backend_lambda_function" {
   function_name    = "${var.app-name}-backend-lambda"
