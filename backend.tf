@@ -10,11 +10,11 @@ data "archive_file" "python_lambda_package" {
 
 resource "null_resource" "pip_install" {
   triggers = {
-    shell_hash = "${sha256(file("${path.module}/lambda/src/requirements.txt"))}"
+    shell_hash = "${sha256(file("${path.module}/app/backend/lambda/requirements.txt"))}"
   }
 
   provisioner "local-exec" {
-    command = "python3 -m pip install -r ${path.module}/lambda/src/requirements.txt -t ${path.module}/layer"
+    command = "python3 -m pip install -r ${path.module}/app/backend/lambda/requirements.txt -t ${path.module}/layer"
   }
 }
 
